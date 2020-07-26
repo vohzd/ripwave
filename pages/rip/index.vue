@@ -63,36 +63,39 @@ export default {
   methods: {
     ...mapActions([
       "convertToMp3",
+      "determineTimestamps",
       "downloadVideo"
     ]),
     async handleForm(){
       this.ripwave();
     },
-    determineTimestamps(){
-      // something like this
-      // google's json looks like this;
-      //console.log(this.video.items[0].snippet.description)
-      //video.items[0].snippet.description
-      return {
-        timestamps: ["00:00", "03:00", "06:00"]
-      }
-    },
     async ripwave(){
-      // need to actually get them
-      // await this.determineTimestamps();
+      //const timestamps = await this.determineTimestamps(this.video);
+      //console.log(timestamps)
+      /*
       this.stage = 2;
       this.numItems = 7;
       this.stage = 3;
-      // doing this over HTTP/REST is pretty awful
-      // then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
+      */
+
+      /*
+       * doing this over HTTP/REST is pretty awful
+       * then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
+       */
+
+       /*
       const dlReq = await this.downloadVideo(this.id);
       this.stage = 4;
       const convertReq = await this.convertToMp3(dlReq.data.fileName)
       this.stage = 5;
       this.stage = 6;
       this.downloadURL = convertReq.data.audioFile;
-      console.log(file)
+      console.log(file)*/
     },
+  },
+  async mounted(){
+    const timestamps = await this.determineTimestamps(this.video);
+    console.log(timestamps)
   }
 }
 </script>
