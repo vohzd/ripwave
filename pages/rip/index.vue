@@ -60,13 +60,17 @@ export default {
   },
   methods: {
     ...mapActions([
+      "convertToMp3",
       "downloadVideo"
     ]),
     async handleForm(){
       this.mock();
-
+      // TODO, check if video has been converted (will require a db)
+      // doing this over HTTP/REST is pretty awful
+      // then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
       const { data } = await this.downloadVideo(this.id);
       console.log(data)
+      await this.convertToMp3(data.fileName)
 
     },
     parseDescriptionIntoTimestamps(){
