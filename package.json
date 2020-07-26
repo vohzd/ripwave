@@ -1,0 +1,17 @@
+{
+  "name": "ripwave",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "nuxt",
+    "generate": "nuxt generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vohzd/ripwave-client.git"
+  },
+  "homepage": "https://github.com/vohzd/ripwave-client#readme",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.0",
+    "nuxt": "^2.13.3"
+  }
+}
