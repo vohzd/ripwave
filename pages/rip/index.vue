@@ -16,17 +16,18 @@
       </div>
       <div class="c70 ml">
         <div class="progress-indicator ">
-          <span class="progress-item mr" :class="{ 'active': stage === 0 }">Initiating scan</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 1 }">Parsing Description</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 2 }">Found {{ foundItems }} parsable items</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 3 }">Matching Metadata</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 4 }">Parsing Tracks</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 5 }">Done</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 0 }">READY TO ROCK</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 1 }">RETREIVING TIMESTAMPS</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 2 }">FOUND {{ numItems }} ITEMS</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 3 }">DOWNLOADING VIDEO</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 4 }">CONVERTING TO MP3</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 5 }">SPLITTING</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 6 }">CEASED</span>
         </div>
       </div>
     </div>
     <div class="row">
-      download here: 21373653871
+      download here: {{ downloadURL }}
     </div>
 
   </main>
@@ -55,7 +56,8 @@ export default {
       isLoading: false,
       isDisabled: false,
       stage: 0,
-      foundItems: 0
+      numItems: 0,
+      downloadURL: null
     }
   },
   methods: {
@@ -64,39 +66,33 @@ export default {
       "downloadVideo"
     ]),
     async handleForm(){
-      this.mock();
-      // doing this over HTTP/REST is pretty awful
-      // then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
-      const { data } = await this.downloadVideo(this.id);
-      const { audioFile } = await this.convertToMp3(data.fileName)
-      console.log(audioFile)
+      this.ripwave();
     },
-    parseDescriptionIntoTimestamps(){
-      console.log("parse me plz")
+    determineTimestamps(){
+      // something like this
+      // google's json looks like this;
       //console.log(this.video.items[0].snippet.description)
       //video.items[0].snippet.description
+      return {
+        timestamps: ["00:00", "03:00", "06:00"]
+      }
     },
-    mock(){
-      this.isLoading = true;
-      const interval = setInterval(() => {
-        console.log("incrementing")
-        this.stage++;
-      }, 1500);
-
-      setTimeout(() => {
-        const interval2 = setInterval(() => {
-          this.foundItems++;
-        }, 75);
-        setTimeout(() => { clearInterval(interval2) }, 1000);
-      }, 3000);
-
-      setTimeout(() => {
-        clearInterval(interval)
-      }, 9001);
-    }
-  },
-  mounted(){
-    //this.parseDescriptionIntoTimestamps();
+    async ripwave(){
+      // need to actually get them
+      // await this.determineTimestamps();
+      this.stage = 2;
+      this.numItems = 7;
+      this.stage = 3;
+      // doing this over HTTP/REST is pretty awful
+      // then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
+      const dlReq = await this.downloadVideo(this.id);
+      this.stage = 4;
+      const convertReq = await this.convertToMp3(dlReq.data.fileName)
+      this.stage = 5;
+      this.stage = 6;
+      this.downloadURL = convertReq.data.audioFile;
+      console.log(file)
+    },
   }
 }
 </script>
