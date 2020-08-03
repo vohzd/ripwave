@@ -1,48 +1,73 @@
+//const moment = require("moment");
+function parseISO8601Duration(duration) {
+    const match = duration.match(/P(\d+Y)?(\d+W)?(\d+D)?T(\d+H)?(\d+M)?(\d+S)?/)
+    // An invalid case won't crash the app.
+    if (!match) {
+        console.error(`Invalid YouTube video duration: ${duration}`)
+        return 0
+    }
+    const [
+        years,
+        weeks,
+        days,
+        hours,
+        minutes,
+        seconds
+    ] = match.slice(1).map(_ => _ ? parseInt(_.replace(/\D/, '')) : 0)
+  return (((years * 365 + weeks * 7 + days) * 24 + hours) * 60 + minutes) * 60 + seconds
+}
+
+const moment = require("moment");
+
+
 export default {
 
   async convertToMp3({ }, fileName){
-    console.log(fileName)
     return await this.$axios.post(`${this.getters.serverEndpoint}/convert/mp3/`, {
       fileName
     });
   },
 
+/*
+ * determineTimestamps({ vuexMethods }, youtubeApiResult)
+ * returns array of objects with track names and start times
+ * this just supports youtube descriptions for now, but probably needs expanding to pull from wikipedia, discogs, musicbrainz etc
+ */
   async determineTimestamps({ }, video){
-    console.log(video)
+    console.log(video);
+
     const description = video.items[0].snippet.description;
+    const videoLength = video.items[0].contentDetails.duration;
+
+    console.log(videoLength)
+    const duration = parseISO8601Duration(videoLength)
+
+    console.log(duration)
+
+    //console.log(moment.duration((duration * 1000)))
+
     const lines = description.split(/\r?\n/);
 
     const trackNumberFinder = /([0-9]?[0-9])./
     const timestampFinder = /(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)([0-5]\d)/
 
+    let tracks = [];
+
     lines.forEach((line, i) => {
       const match = timestampFinder.exec(line);
       if (match){
         const timestamps = match;
-        let lineWithoutTimestamps = line.replace(timestampFinder, "").trim();
-
-        // sometimes there will be brackets
-        lineWithoutTimestamps = lineWithoutTimestamps.replace("()", "");
-        //const trackName = line.replace(timestampFinder, "").trim().split("-")[1].trim();
-        //const artist
+        let lineWithoutTimestamps = line.replace(timestampFinder, "").trim().replace("()", "");
+        console.log("TIMESTAMP")
         console.log(timestamps)
-        console.log(lineWithoutTimestamps)
-
-        const lineWithoutTrackNumbers = lineWithoutTimestamps.replace(trackNumberFinder, "").trim();
-        console.log(lineWithoutTrackNumbers)
-        //console.log(trackName)
+        tracks.push({
+          name: lineWithoutTimestamps.replace(trackNumberFinder, "").trim(),
+          start: timestamps[0]
+        });
       }
-    /*
-      const pos = line.indexOf("/[0-9]/");
-      if (pos > -1){
-        console.log(line)
-        console.log(pos)
-      }*/
     });
 
-    //console.log()
-    //video.items[0].snippet.description
-    return { timestamps: ["00:00", "03:00", "06:00"] }
+    return tracks;
   },
 
   async downloadVideo({ }, id){
@@ -51,6 +76,10 @@ export default {
 
   async getVideo({ }, id){
     return await this.$axios.get(`${this.getters.serverEndpoint}/youtube/video/${ id }`);
-  }
+  },
+
+  async splitMp3({ }, payload){
+    return await this.$axios.post(`${this.getters.serverEndpoint}/split/mp3/`, payload );
+  },
 
 }

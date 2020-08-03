@@ -11,23 +11,32 @@
       <form-button class="absolute-top-right" @click.native="handleForm" :button-text="buttonText" :is-loading="isLoading" :is-disabled="isDisabled"></form-button>
     </div>
     <div class="row mb mt">
-      <div class="c30 mr">
-        <iframe :src="`https://www.youtube.com/embed/${id}`" frameborder="0" allow="autoplay; encrypted-media" class="row min-height" allowfullscreen ></iframe>
-      </div>
-      <div class="c70 ml">
         <div class="progress-indicator ">
-          <span class="progress-item mr" :class="{ 'active': stage === 0 }">READY TO ROCK</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 1 }">RETREIVING TIMESTAMPS</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 2 }">FOUND {{ numItems }} ITEMS</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 3 }">DOWNLOADING VIDEO</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 4 }">CONVERTING TO MP3</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 5 }">SPLITTING</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 6 }">CEASED</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 0 }">STANDBY</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 1 }">HARVESTING VIDEO</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 2 }">TRANSMUTING FILE FORMAT</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 3 }">DISUNITING TIMESTAMPS</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 4 }">IMPLANTING METADATA</span>
+          <span class="progress-item mr" :class="{ 'active': stage === 5 }">CEASED</span>
         </div>
-      </div>
     </div>
     <div class="row">
       download here: {{ downloadURL }}
+    </div>
+    <div class="row flex-wrapper">
+      <div class="c50 mr">
+        <iframe :src="`https://www.youtube.com/embed/${id}`" frameborder="0" allow="autoplay; encrypted-media" class="row min-height" allowfullscreen ></iframe>
+      </div>
+      <div class="c50">
+        <div class="track-header row mb">
+          <div class="c25">start time</div>
+          <div class="c75">name</div>
+        </div>
+        <div class="track row mb" v-for="track in tracks">
+          <div class="c25"><input :value="track.start" class="c90 text-center" /></div>
+          <div class="c75"><input :value="track.name" /></div>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -52,31 +61,26 @@ export default {
   },
   data(){
     return {
-      buttonText: "Start Ripping",
+      buttonText: "START",
+      downloadURL: null,
       isLoading: false,
       isDisabled: false,
       stage: 0,
-      numItems: 0,
-      downloadURL: null
+      tracks: []
     }
   },
   methods: {
     ...mapActions([
       "convertToMp3",
       "determineTimestamps",
-      "downloadVideo"
+      "downloadVideo",
+      "splitMp3"
     ]),
     async handleForm(){
       this.ripwave();
     },
     async ripwave(){
-      //const timestamps = await this.determineTimestamps(this.video);
-      //console.log(timestamps)
-      /*
-      this.stage = 2;
-      this.numItems = 7;
-      this.stage = 3;
-      */
+
 
       /*
        * doing this over HTTP/REST is pretty awful
@@ -84,18 +88,23 @@ export default {
        */
 
        /*
+      this.stage = 1;
       const dlReq = await this.downloadVideo(this.id);
-      this.stage = 4;
+      this.stage = 2;
       const convertReq = await this.convertToMp3(dlReq.data.fileName)
-      this.stage = 5;
-      this.stage = 6;
+      this.stage = 3;
+      */
+      const splitReq = await this.splitMp3({
+        id: this.id,
+        tracks: this.tracks
+      });
+      /*
       this.downloadURL = convertReq.data.audioFile;
       console.log(file)*/
     },
   },
   async mounted(){
-    const timestamps = await this.determineTimestamps(this.video);
-    console.log(timestamps)
+    this.tracks = await this.determineTimestamps(this.video);
   }
 }
 </script>
@@ -103,14 +112,20 @@ export default {
 <style lang="css">
 
   .progress-indicator .progress-item {
-    font-size: 64px;
-    opacity: 0.15;
+    font-size: 72px;
+    opacity: 0.05;
+    font-family: "share-tech";
+    letter-spacing: 6px;
     text-transform: uppercase;
     transition: 0.5s all;
   }
 
   .progress-indicator .progress-item.active {
     opacity: 0.9;
+  }
+
+  .track input {
+    padding: 8px;
   }
 
 

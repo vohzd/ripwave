@@ -56,6 +56,12 @@ html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,ifr
   font-style: normal;
 }
 
+@font-face {
+  font-family: "share-tech";
+  src: url("~static/fonts/share-tech.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   background: var(--background);
   color: var(--text);
@@ -177,6 +183,9 @@ button::-moz-focus-inner {
   margin-bottom: 128px;
 }
 
+.mrx {
+  margin-right: 32px;
+}
 .pad {
   padding: 32px;
   display: inline-block;
@@ -191,6 +200,23 @@ button::-moz-focus-inner {
 .center {
   text-align: center;
 }
+
+.c25 {
+  float: left;
+  width: 25%;
+}
+
+
+.c33 {
+  float: left;
+  width: 33%;
+}
+
+.c30 {
+  float: left;
+  width: 30%;
+}
+
 
 .c40 {
   float: left;
@@ -211,24 +237,15 @@ button::-moz-focus-inner {
   float: left;
   width: 60%;
 }
+
 .c75 {
   float: left;
   width: 75%;
 }
 
-.c33 {
+.c90 {
   float: left;
-  width: 33%;
-}
-
-.c30 {
-  float: left;
-  width: 30%;
-}
-
-.c25 {
-  float: left;
-  width: 25%;
+  width: 75%;
 }
 
 .absolute-top-right {
@@ -262,10 +279,6 @@ button::-moz-focus-inner {
   display: inline-block;
 }
 
-.min-height {
-    min-height: 400px;
-}
-
 .tag {
   padding: 6px;
   float: left;
@@ -274,6 +287,10 @@ button::-moz-focus-inner {
   font-size: 10px;
   line-height: 16px;
   background: rgba(255,255,255,0.1);
+}
+
+.min-height {
+    min-height: 400px;
 }
 
 .flex-wrapper {
@@ -288,62 +305,65 @@ button::-moz-focus-inner {
   flex: 1;
 }
 
+.text-center {
+  text-align: center;
+}
 
-  .lds-ellipsis div {
-      position: absolute;
-      top: 1px;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.15);
-      animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  }
-  .lds-ellipsis div:nth-child(1) {
-      left: 6px;
-      animation: lds-ellipsis1 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(2) {
-      left: 6px;
-      animation: lds-ellipsis2 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(3) {
-      left: 26px;
-      animation: lds-ellipsis2 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(4) {
-      left: 45px;
-      animation: lds-ellipsis3 0.6s infinite;
-  }
-  @keyframes lds-ellipsis1 {
-      0% {
-          transform: scale(0);
-     }
-      100% {
-          transform: scale(1);
-     }
-  }
-  @keyframes lds-ellipsis3 {
-      0% {
-          transform: scale(1);
-     }
-      100% {
-          transform: scale(0);
-     }
-  }
-  @keyframes lds-ellipsis2 {
-      0% {
-          transform: translate(0, 0);
-     }
-      100% {
-          transform: translate(19px, 0);
-     }
-  }
+.lds-ellipsis div {
+    position: absolute;
+    top: 1px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.15);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+   }
+    100% {
+        transform: scale(1);
+   }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+   }
+    100% {
+        transform: scale(0);
+   }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+   }
+    100% {
+        transform: translate(19px, 0);
+   }
+}
 
-  .main-logo {
-    font-family: "nova";
-    font-size: 256px;
-    text-align: center;
-  }
+.main-logo {
+  font-family: "nova";
+  font-size: 256px;
+  text-align: center;
+}
 
 
 @media (max-width: 1600px) {
