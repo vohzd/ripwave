@@ -17,27 +17,28 @@
 
     <div class="center-container mtx two-uneven-grid grid">
       <div>
-        <h2>Video</h2>
+        <h2 class="mb">Video</h2>
         <iframe :src="`https://www.youtube.com/embed/${id}`" frameborder="0" allow="autoplay; encrypted-media" class="row min-height" allowfullscreen ></iframe>
       </div>
       <div class="mlx">
-        <h2>Tracks</h2>
+        <h2 class="mb">Tracks</h2>
         <div class="track-header mb three-uneven-grid grid">
           <div class="">track number</div>
           <div class="">start time</div>
           <div class="">name</div>
         </div>
-        <div class="track mb three-uneven-grid grid" v-for="track in tracks">
-          <div class=""><input :value="track.number" class="c90 text-center" /></div>
+        <div class="track mb three-uneven-grid grid" v-for="(track, i) in tracks">
+          <div class=""><input :value="i + 1" class="c90 text-center" /></div>
           <div class=""><input :value="track.start" class="c90 text-center" /></div>
-          <div class=""><input :value="track.name" /></div>
+          <div class="relative">
+            <input :value="track.name" />
+            <div class="absolute-top-right">
+              x
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-
-
-
 
 
     <footer>
@@ -117,6 +118,7 @@ export default {
     },
   },
   async mounted(){
+    /* DO THIS SSR */
     this.tracks = await this.determineTimestamps(this.video);
   }
 }
@@ -153,6 +155,7 @@ export default {
 
   .track input {
     padding: 8px;
+    font-size: 20px;
   }
 
 

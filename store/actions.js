@@ -34,16 +34,14 @@ export default {
  * this just supports youtube descriptions for now, but probably needs expanding to pull from wikipedia, discogs, musicbrainz etc
  */
   async determineTimestamps({ }, video){
-    console.log(video);
 
     const description = video.items[0].snippet.description;
     const videoLength = video.items[0].contentDetails.duration;
 
-    console.log(videoLength)
     const duration = parseISO8601Duration(videoLength)
 
-    console.log(duration)
 
+    console.log(description);
     //console.log(moment.duration((duration * 1000)))
 
     const lines = description.split(/\r?\n/);
@@ -53,21 +51,21 @@ export default {
 
     let tracks = [];
 
+    /* loop all lines, and extract some useful stuff*/
     lines.forEach((line, i) => {
-      const match = timestampFinder.exec(line);
-      if (match){
-        const timestamps = match;
+      // extract the timestamps
+      const timestamp = timestampFinder.exec(line);
+      if (timestamp){
         let lineWithoutTimestamps = line.replace(timestampFinder, "").trim().replace("()", "");
-        console.log("TIMESTAMP")
-        console.log(timestamps)
         tracks.push({
           name: lineWithoutTimestamps.replace(trackNumberFinder, "").trim(),
-          start: timestamps[0]
+          start: timestamp[0]
         });
       }
     });
 
     return tracks;
+
   },
 
   async downloadVideo({ }, id){

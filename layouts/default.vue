@@ -62,8 +62,10 @@ html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,ifr
   font-weight: normal;
   font-style: normal;
 }
+
 body {
   background: var(--background);
+  font-size: 24px;
   color: var(--text);
   font-family: "Inconsolata", monospace;
   margin: 0;
@@ -93,7 +95,9 @@ a:hover {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 52px;
+  border-bottom: 3px solid rgba(255,255,255,0.1);
+  padding-bottom: 16px;
 }
 
 h2 {
