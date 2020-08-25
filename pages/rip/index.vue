@@ -1,43 +1,56 @@
 <template lang="html">
-  <main>
-    <div class="row mb relative">
-      <h1 class="mb">{{ video.items[0].snippet.title }}</h1>
-      <div class="medium">
-        Published: {{ video.items[0].snippet.publishedAt }}
+  <main class="">
+
+    <!-- top text and CTA button -->
+    <div class="center-container relative">
+      <form-button class="absolute-top-right massive" @click.native="handleForm" :button-text="buttonText" :is-loading="isLoading" :is-disabled="isDisabled"></form-button>
+      <h1 class="mb c75">{{ video.items[0].snippet.title }}</h1>
+
+      <div class="row">
+        <div class="">Published: {{ video.items[0].snippet.publishedAt }}</div>
+        <div class="">ID: {{ id }}</div>
       </div>
-      <div class="medium">
-        ID: {{ id }}
-      </div>
-      <form-button class="absolute-top-right" @click.native="handleForm" :button-text="buttonText" :is-loading="isLoading" :is-disabled="isDisabled"></form-button>
     </div>
-    <div class="row mb mt">
-        <div class="progress-indicator ">
-          <span class="progress-item mr" :class="{ 'active': stage === 0 }">STANDBY</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 1 }">HARVESTING VIDEO</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 2 }">TRANSMUTING FILE FORMAT</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 3 }">DISUNITING TIMESTAMPS</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 4 }">IMPLANTING METADATA</span>
-          <span class="progress-item mr" :class="{ 'active': stage === 5 }">CEASED</span>
-        </div>
-    </div>
-    <div class="row">
-      download here: {{ downloadURL }}
-    </div>
-    <div class="row flex-wrapper">
-      <div class="c50 mr">
+
+
+    <!-- youtube video and track list -->
+
+    <div class="center-container mtx two-uneven-grid grid">
+      <div>
+        <h2>Video</h2>
         <iframe :src="`https://www.youtube.com/embed/${id}`" frameborder="0" allow="autoplay; encrypted-media" class="row min-height" allowfullscreen ></iframe>
       </div>
-      <div class="c50">
-        <div class="track-header row mb">
-          <div class="c25">start time</div>
-          <div class="c75">name</div>
+      <div class="mlx">
+        <h2>Tracks</h2>
+        <div class="track-header mb three-uneven-grid grid">
+          <div class="">track number</div>
+          <div class="">start time</div>
+          <div class="">name</div>
         </div>
-        <div class="track row mb" v-for="track in tracks">
-          <div class="c25"><input :value="track.start" class="c90 text-center" /></div>
-          <div class="c75"><input :value="track.name" /></div>
+        <div class="track mb three-uneven-grid grid" v-for="track in tracks">
+          <div class=""><input :value="track.number" class="c90 text-center" /></div>
+          <div class=""><input :value="track.start" class="c90 text-center" /></div>
+          <div class=""><input :value="track.name" /></div>
         </div>
       </div>
     </div>
+
+
+
+
+
+
+    <footer>
+      <div class="progress-indicator  ">
+        <span class="progress-item" :class="{ 'active': stage === 0 }">STANDBY</span>
+        <span class="progress-item" :class="{ 'active': stage === 1 }">HARVESTING VIDEO</span>
+        <span class="progress-item" :class="{ 'active': stage === 2 }">TRANSMUTING FILE FORMAT</span>
+        <span class="progress-item" :class="{ 'active': stage === 3 }">DISUNITING TIMESTAMPS</span>
+        <span class="progress-item" :class="{ 'active': stage === 4 }">IMPLANTING METADATA</span>
+        <span class="progress-item" :class="{ 'active': stage === 5 }">CEASED</span>
+      </div>
+    </footer>
+
 
   </main>
 </template>
@@ -111,8 +124,22 @@ export default {
 
 <style lang="css">
 
+  /* if you want it to go over one line
+  .progress-indicator {
+    display: grid;
+    grid-auto-flow: column;
+
+  }*/
+
+  /* sits in the bottom right corner */
+  .progress-indicator {
+    display: grid;
+    grid-auto-rows: min-content;
+    text-align: right;
+  }
+
   .progress-indicator .progress-item {
-    font-size: 72px;
+    font-size: 32px;
     opacity: 0.05;
     font-family: "share-tech";
     letter-spacing: 6px;

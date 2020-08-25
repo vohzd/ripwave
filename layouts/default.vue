@@ -1,7 +1,7 @@
 <template>
   <section>
     <top-toolbar></top-toolbar>
-    <nuxt class="main-view mtx" />
+    <nuxt class="mtx" />
   </section>
 </template>
 
@@ -93,7 +93,7 @@ a:hover {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 48px;
 }
 
 h2 {
@@ -153,10 +153,9 @@ button::-moz-focus-inner {
   position: relative;
 }
 
-.main-view {
+.center-container {
   margin: auto;
   width: 50%;
-  height: 100vh;
 }
 
 .mt {
@@ -183,9 +182,14 @@ button::-moz-focus-inner {
   margin-bottom: 128px;
 }
 
+.mlx {
+  margin-left: 32px;
+}
+
 .mrx {
   margin-right: 32px;
 }
+
 .pad {
   padding: 32px;
   display: inline-block;
@@ -193,19 +197,55 @@ button::-moz-focus-inner {
 
 .row {
   width: 100%;
-  float: left;
+  display: inline-block;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
 .center {
   text-align: center;
+}
+
+.grid {
+  display: grid;
+}
+
+
+.two-uneven-grid {
+  grid-template-columns: 1fr 3fr;
+}
+
+.three-uneven-grid {
+  grid-template-columns: 1fr 1fr 6fr;
+}
+
+.even-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.c10 {
+  float: left;
+  width: 10%;
+}
+
+.c15 {
+  float: left;
+  width: 10%;
+}
+
+.c20 {
+  float: left;
+  width: 20%;
 }
 
 .c25 {
   float: left;
   width: 25%;
 }
-
 
 .c33 {
   float: left;
@@ -216,7 +256,6 @@ button::-moz-focus-inner {
   float: left;
   width: 30%;
 }
-
 
 .c40 {
   float: left;
@@ -367,7 +406,7 @@ button::-moz-focus-inner {
 
 
 @media (max-width: 1600px) {
-  .main-view {
+  .center-container {
     width: 80%;
   }
 
@@ -378,7 +417,7 @@ button::-moz-focus-inner {
 }
 
 @media (max-width: 1000px) {
-  .main-view {
+  .center-container {
     width: 96%;
     margin-left: 2%;
     margin-right: 2%;

@@ -24,6 +24,11 @@ module.exports = {
   build: {
     optimizeCSS: true
   },
+  buildModules: [
+    ['@nuxtjs/google-analytics', {
+      id: 'G-L0CYRMMK7V'
+    }]
+  ],
   modules: [
     "@nuxtjs/axios"
   ],
