@@ -21,19 +21,6 @@ export default {
 <style lang="css">
 
 :root {
-  --orange-hex: #f1e9cf;
-  --orange-hex-darker: #8c793c;
-  --orange-r: 241;
-  --orange-g: 233;
-  --orange-b: 207;
-  --blue-hex: #258bc9;
-  --blue-r: 37;
-  --blue-g: 139;
-  --blue-b: 201;
-  --plyr-audio-control-background-hover: var(--orange-hex-darker)
-}
-
-:root {
     --text: white;
     --link: #be7a0b;
     --button: #753751;
@@ -220,7 +207,7 @@ footer {
 
 
 .two-uneven-grid {
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
 }
 
 .three-uneven-grid {
@@ -351,6 +338,51 @@ footer {
 .text-center {
   text-align: center;
 }
+
+.radio-buttons {
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.05);
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.radio-button {
+  flex-grow: 1;
+  background: rgba(0,0,0,0.05);
+  border: none;
+  padding: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  border-right: 1px solid rgba(0,0,0,0.05);
+  padding: 16px;
+}
+
+.radio-button:last-child {
+  border-right:none;
+}
+
+.radio-button label {
+  width: auto;
+  padding: 12px;
+  text-align: center;
+  color: white;
+}
+
+.radio-button:not(.radio-button-selected):hover {
+  cursor: pointer;
+  background: rgba(0,0,0,0.1);
+}
+
+.radio-button input[type="radio"]{
+  display: none;
+}
+
+.radio-button-selected {
+  background: var(--button);
+}
+
 
 .lds-ellipsis div {
     position: absolute;

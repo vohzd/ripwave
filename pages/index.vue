@@ -1,25 +1,35 @@
 <template lang="html">
-  <main class="center">
+  <main class="center-container">
     <site-logo></site-logo>
-    <section class="row mbx">
+    <div class="row mbx  text-center">
       <input placeholder="Enter YouTube URL" v-model="url"/>
-      <button class="mt text-center" @click="handleForm">LET RIP</button>
-    </section>
-    <section>
+      <button class="mt" @click="handleForm">LET RIP</button>
+      <div class="radio-buttons mlx mrx mt">
+        <span class="radio-button" @click="choosePurpose(0)" :class=" { 'radio-button-selected': isTabSelected(0) } ">
+          <label>Split Album</label>
+          <input type="radio" />
+        </span>
+        <span class="radio-button" @click="choosePurpose(1)" :class=" { 'radio-button-selected': isTabSelected(1) } ">
+          <label>Don't split</label>
+          <input type="radio" />
+        </span>
+      </div>
+    </div>
+    <div>
       <h2>Ever needed to rip a YouTube album into individual .mp3s?</h2>
-    </section>
-    <section class="mtx">
+    </div>
+    <div class="mtx">
       <h3>Lorum ipsum?</h3>
       <p>Something something</p>
-    </section>
-    <section class="mtx">
+    </div>
+    <div class="mtx">
       <h3>Lorum ipsum?</h3>
       <p>Something something</p>
-    </section>
-    <section class="mtx">
+    </div>
+    <div class="mtx">
       <h3>Lorum ipsum?</h3>
       <p>Something something</p>
-    </section>
+    </div>
   </main>
 </template>
 
@@ -34,6 +44,7 @@ export default {
   },
   data(){
     return {
+      tabSelected: 0,
       url: null
     }
   },
@@ -41,7 +52,7 @@ export default {
     handleForm(){
       let id = this.url.split("v=")[1];
           id = id.length !== 11 ? id.split("&")[0] : id;
-      this.$router.push(`/rip?id=${ id }`);
+      this.$router.push(`/rip?id=${ id }&mode=${this.tabSelected}`);
     },
     ensureCorrectYoutubeLink(url){
       // todo
@@ -50,6 +61,12 @@ export default {
       const id = (match && match[2].length === 11) ? match[2] : "dQw4w9WgXcQ";
       return `https://www.youtube.com/embed/${id}`;
     },
+    choosePurpose(int){
+      this.tabSelected = int;
+    },
+    isTabSelected(i){
+      return this.tabSelected === i ? true : false;
+    }
   }
 }
 </script>

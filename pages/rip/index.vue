@@ -12,15 +12,13 @@
       </div>
     </div>
 
-
     <!-- youtube video and track list -->
-
     <div class="center-container mtx two-uneven-grid grid">
       <div>
         <h2 class="mb">Video</h2>
         <iframe :src="`https://www.youtube.com/embed/${id}`" frameborder="0" allow="autoplay; encrypted-media" class="row min-height" allowfullscreen ></iframe>
       </div>
-      <div class="mlx">
+      <div class="mlx" v-if="mode == 0">
         <h2 class="mb">Tracks</h2>
         <div class="track-header mb three-uneven-grid grid">
           <div class="">track number</div>
@@ -64,10 +62,16 @@ import FormButton from "~/components/form/FormButton.vue";
 
 export default {
   async asyncData({ store, query }){
-    // todo double check this is a youtube id fragment (create a helper)
+
+    let mode = 0;
+
+    query.mode ? mode = !!query.mode : 0;
+
+    console.log(mode);
+
     if (query.id){
       const { data } = await store.dispatch("getVideo", query.id);
-      return { video: data, id: query.id }
+      return { video: data, id: query.id, mode }
     }
   },
   components: {
@@ -95,23 +99,34 @@ export default {
     },
     async ripwave(){
 
+      console.log("SET UP A WEBSOCKET HERE");
 
-      /*
+
+
+
+
+
+
+
+
+
+
+      /* DEPRECATED!!!
        * doing this over HTTP/REST is pretty awful
        * then if the conversion needs to go ahead, set up a websocket connection to keep the client informed of progress
        */
 
-       /*
+       /* example of how to mutate the frontend.....
       this.stage = 1;
       const dlReq = await this.downloadVideo(this.id);
       this.stage = 2;
       const convertReq = await this.convertToMp3(dlReq.data.fileName)
       this.stage = 3;
-      */
+
       const splitReq = await this.splitMp3({
         id: this.id,
         tracks: this.tracks
-      });
+      });*/
       /*
       this.downloadURL = convertReq.data.audioFile;
       console.log(file)*/
@@ -141,8 +156,8 @@ export default {
   }
 
   .progress-indicator .progress-item {
-    font-size: 32px;
-    opacity: 0.05;
+    font-size: 64px;
+    opacity: 0.08;
     font-family: "share-tech";
     letter-spacing: 6px;
     text-transform: uppercase;
