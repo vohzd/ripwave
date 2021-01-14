@@ -9,3 +9,7 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+/api/config/keys/mongo.js
+/api/config/keys/youtube-api.js
+/api/config/keys/lastfm.js

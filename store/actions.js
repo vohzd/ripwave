@@ -24,7 +24,7 @@ import {
 export default {
 
   async convertToMp3({ }, fileName){
-    return await this.$axios.post(`${this.getters.serverEndpoint}/convert/mp3/`, {
+    return await this.$axios.post(`api/convert/mp3/`, {
       fileName
     });
   },
@@ -70,15 +70,15 @@ export default {
   },
 
   async downloadVideo({ }, id){
-    return await this.$axios.get(`${this.getters.serverEndpoint}/youtube/download/${ id }`);
+    return await this.$axios.get(`api/youtube/download/${ id }`);
   },
 
   async getVideo({ }, id){
-    return await this.$axios.get(`${this.getters.serverEndpoint}/youtube/video/${ id }`);
+    return await this.$axios.get(`api/youtube/video/${ id }`);
   },
 
   async splitMp3({ }, payload){
-    return await this.$axios.post(`${this.getters.serverEndpoint}/split/mp3/`, payload );
+    return await this.$axios.post(`api/split/mp3/`, payload );
   },
 
 }
