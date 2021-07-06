@@ -1,9 +1,8 @@
-const { apiKey } = require("../../config/youtube-api.js");
 const { google } = require("googleapis");
 
 const youtube = google.youtube({
   version: "v3",
-  auth: apiKey
+  auth: process.env.YOUTUBE_API_KEY
 });
 
 // https://developers.google.com/youtube/v3/docs

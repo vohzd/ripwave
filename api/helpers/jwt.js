@@ -1,10 +1,9 @@
 const jwt         = require("jsonwebtoken");
-const { secret }  = require("../config/keys/jwtSecret.js");
+
+const secret      = process.env.JWT_SECRET;
 
 function verifyJWT(token){
-
   if (!token) return;
-
   try {
     return jwt.verify(token, secret)
   }
@@ -15,7 +14,7 @@ function verifyJWT(token){
 }
 
 function signJWT(payload){
-  return jwt.sign(payload, secret, { expiresIn: "2hr" });
+  return jwt.sign(payload, secret, { expiresIn: "12hr" });
 }
 
 module.exports = {

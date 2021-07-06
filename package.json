@@ -1,6 +1,6 @@
 {
   "name": "ripwave",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "cross-env IS_DEV=TRUE NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt",
     "build": "nuxt build",
@@ -13,23 +13,27 @@
   },
   "homepage": "https://github.com/vohzd/ripwave#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-brands-svg-icons": "^5.15.2",
-    "@fortawesome/free-regular-svg-icons": "^5.15.2",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^2.0.2",
-    "@nuxtjs/axios": "^5.12.5",
-    "@nuxtjs/pwa": "^3.3.4",
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/sitemap": "^2.4.0",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.3",
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.22.1",
     "express": "^4.17.1",
-    "helmet": "^4.3.1",
+    "googleapis": "^80.1.0",
+    "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.12",
-    "nuxt": "^2.14.12"
+    "mongoose": "^5.13.2",
+    "nuxt": "^2.15.7"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

@@ -1,15 +1,11 @@
-# dependencies
 node_modules
+package-lock.json
 
-# logs
 npm-debug.log
+access.json
 
-# Nuxt build
+.env
+
 .nuxt
 
-# Nuxt generate
 dist
-
-/api/config/keys/mongo.js
-/api/config/keys/youtube-api.js
-/api/config/keys/lastfm.js
